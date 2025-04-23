@@ -1,0 +1,61 @@
+Schema for row 1:
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "type" : "object",
+  "properties" : {
+    "UniqueId" : {
+      "type" : "string"
+    },
+    "CustomerId" : {
+      "type" : "string"
+    },
+    "ClientDetails" : {
+      "type" : "object",
+      "properties" : {
+        "Name" : {
+          "type" : "string"
+        },
+        "Address" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "Name", "Address" ]
+    }
+  },
+  "required" : [ "UniqueId", "CustomerId", "ClientDetails" ]
+}
+Schema for row 2:
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "type" : "object",
+  "properties" : {
+    "documentId" : {
+      "type" : "string"
+    },
+    "version" : {
+      "type" : "number"
+    },
+    "content" : {
+      "type" : "object",
+      "properties" : {
+        "title" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "title", "description" ]
+    },
+    "updateTimestamp" : {
+      "type" : "string"
+    },
+    "modifiedBy" : {
+      "type" : "string"
+    },
+    "operationType" : {
+      "type" : "string"
+    }
+  },
+  "required" : [ "documentId", "version", "content", "updateTimestamp", "modifiedBy", "operationType", "tags" ]
+}

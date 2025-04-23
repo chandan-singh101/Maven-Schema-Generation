@@ -1,0 +1,131 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.example:json-schema-generator >------------------
+[INFO] Building json-schema-generator 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- exec:3.5.0:java (default-cli) @ json-schema-generator ---
+Schema for row 1:
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "type" : "object",
+  "properties" : {
+    "UniqueId" : {
+      "type" : "string"
+    },
+    "MobileNo" : {
+      "type" : "string"
+    },
+    "IsTxnExternal" : {
+      "type" : "string"
+    },
+    "ClientId" : {
+      "type" : "string"
+    },
+    "ClientFieldDetails" : {
+      "type" : "object",
+      "properties" : {
+        "UniqueID" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "UniqueID", "Field1", "Field2", "Field3" ]
+    },
+    "IsWhiteLabel" : {
+      "type" : "number"
+    }
+  },
+  "required" : [ "UniqueId", "MobileNo", "IsTxnExternal", "ClientId", "ClientFieldDetails", "IsWhiteLabel", "Category", "AgentClientId", "BankName", "Product", "RFU1" ]
+}
+Schema for row 2:
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "type" : "object",
+  "properties" : {
+    "IsUpgrade" : {
+      "type" : "string"
+    },
+    "CUSTINTEREST" : {
+      "type" : "string"
+    },
+    "SubProduct" : {
+      "type" : "string"
+    },
+    "productCode" : {
+      "type" : "string"
+    },
+    "Pincode" : {
+      "type" : "string"
+    },
+    "complaintMode" : {
+      "type" : "string"
+    },
+    "AadharName" : {
+      "type" : "string"
+    },
+    "AdhaarNo" : {
+      "type" : "string"
+    },
+    "AddressProofType" : {
+      "type" : "string"
+    },
+    "AddressProofNo" : {
+      "type" : "string"
+    },
+    "IDProofType" : {
+      "type" : "string"
+    },
+    "IDProofNo" : {
+      "type" : "string"
+    },
+    "FIRSTNM" : {
+      "type" : "string"
+    },
+    "LASTNM" : {
+      "type" : "string"
+    },
+    "ACCOUNTNUMBER" : {
+      "type" : "string"
+    },
+    "MobileNumber" : {
+      "type" : "string"
+    },
+    "CustomerNUMBER" : {
+      "type" : "string"
+    },
+    "EMAILID" : {
+      "type" : "string"
+    },
+    "GrievanceTypeID" : {
+      "type" : "string"
+    },
+    "SubGrievanceTypeID" : {
+      "type" : "string"
+    },
+    "X-Correlation-Id" : {
+      "type" : "string"
+    }
+  },
+  "required" : [ "IsUpgrade", "CUSTINTEREST", "SubProduct", "productCode", "Pincode", "complaintMode", "AadharName", "AdhaarNo", "AddressProofType", "AddressProofNo", "IDProofType", "IDProofNo", "FIRSTNM", "LASTNM", "ACCOUNTNUMBER", "MobileNumber", "CustomerNUMBER", "EMAILID", "GrievanceTypeID", "SubGrievanceTypeID", "X-Correlation-Id" ]
+}
+Schema for row 3:
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "type" : "object",
+  "properties" : {
+    "mobileno" : {
+      "type" : "string"
+    },
+    "searchflag" : {
+      "type" : "string"
+    }
+  },
+  "required" : [ "mobileno", "searchflag" ]
+}
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.136 s
+[INFO] Finished at: 2025-04-23T10:43:14+05:30
+[INFO] ------------------------------------------------------------------------
