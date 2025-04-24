@@ -5,78 +5,90 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.odftoolkit.simple.SpreadsheetDocument;
-import org.odftoolkit.simple.table.Row;
 import org.odftoolkit.simple.table.Table;
 
+import com.example.SchemaRules.Rule;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class JsonToSchemaConverter {
 
     public static void main(String[] args) throws Exception {
-        // Load the .ods file from the project root
-        File odsFile = new File("input.ods");
-        SpreadsheetDocument document = SpreadsheetDocument.loadDocument(odsFile);
-        Table sheet = document.getSheetByIndex(0);
-
+        SchemaRules rules = new SchemaRules();
         ObjectMapper mapper = new ObjectMapper();
-        int rowCount = sheet.getRowCount();
 
-        for (int i = 0; i < rowCount; i++) {
-            Row row = sheet.getRowByIndex(i);
-            String jsonPayload = row.getCellByIndex(1).getDisplayText();
+        SpreadsheetDocument doc =
+            SpreadsheetDocument.loadDocument(new File("input.ods"));
+        Table sheet = doc.getSheetByIndex(0);
 
-            if (jsonPayload != null && !jsonPayload.isBlank()) {
-                try {
-                    JsonNode jsonNode = mapper.readTree(jsonPayload);
-                    ObjectNode schema = generateSchema(jsonNode, mapper);
-                    System.out.println("Schema for row " + (i + 1) + ":");
-                    System.out.println(mapper
-                        .writerWithDefaultPrettyPrinter()
-                        .writeValueAsString(schema));
-                } catch (Exception e) {
-                    System.err.println("Error on row " + (i + 1) 
-                        + ": " + e.getMessage());
-                }
-            }
+        for (int i = 0; i < sheet.getRowCount(); i++) {
+            String raw = sheet.getRowByIndex(i)
+                  .getCellByIndex(1)
+                  .getDisplayText();
+String payload = normalizeQuotes(raw);
+if (payload == null || payload.isBlank()) continue;
+
+JsonNode root = mapper.readTree(payload);
+            ObjectNode schema = generateSchema(root, mapper, rules);
+            System.out.println(schema.toPrettyString());
         }
     }
 
-    private static ObjectNode generateSchema(JsonNode node, ObjectMapper mapper) {
-        ObjectNode root = mapper.createObjectNode();
-        root.put("$schema", "http://json-schema.org/draft-04/schema#");
-        root.put("type", "object");
-        root.set("properties", buildProperties(node, mapper));
-        root.set("required", mapper.valueToTree(listRequired(node)));
+    private static ObjectNode generateSchema(JsonNode node,
+                                             ObjectMapper mapper,
+                                             SchemaRules rules)
+    {
+        ObjectNode root = mapper.createObjectNode()
+            .put("$schema", "http://json-schema.org/draft-04/schema#")
+            .put("type", "object");
+
+        root.set("properties", buildProperties(node, mapper, rules));
+        root.set("required" ,
+            mapper.valueToTree(listRequired(node)));
         return root;
     }
 
-    private static ObjectNode buildProperties(JsonNode node, ObjectMapper mapper) {
+    private static ObjectNode buildProperties(JsonNode node,
+                                              ObjectMapper mapper,
+                                              SchemaRules rules)
+    {
         ObjectNode props = mapper.createObjectNode();
-        if (node.isObject()) {
-            Iterator<Map.Entry<String, JsonNode>> fields = node.fields();
-            while (fields.hasNext()) {
-                Map.Entry<String, JsonNode> entry = fields.next();
-                String key = entry.getKey();
-                JsonNode val = entry.getValue();
+        if (!node.isObject()) return props;
 
-                if (val.isTextual()) {
-                    props.putObject(key).put("type", "string");
-                } else if (val.isNumber()) {
-                    props.putObject(key).put("type", "number");
-                } else if (val.isBoolean()) {
-                    props.putObject(key).put("type", "boolean");
-                } else if (val.isObject()) {
-                    ObjectNode nested = props.putObject(key)
-                                             .put("type", "object");
-                    nested.set("properties", buildProperties(val, mapper));
-                    nested.set("required", 
-                        mapper.valueToTree(listRequired(val)));
+        for (Iterator<Map.Entry<String, JsonNode>> it = node.fields();
+             it.hasNext();)
+        {
+            Map.Entry<String, JsonNode> entry = it.next();
+            String key = entry.getKey();
+            JsonNode val = entry.getValue();
+
+            ObjectNode def = props.putObject(key);
+            Optional<Rule> maybe = rules.getRule(key);
+            if (maybe.isPresent() && maybe.get().enums != null) {
+                def.put("type", maybe.get().type);
+                ArrayNode arr = def.putArray("enum");
+                for (String e : maybe.get().enums) {
+                    arr.add(e);
                 }
-                // Add support for arrays, nulls, etc., if needed
+            } else {
+                String type = maybe.map(r -> r.type).orElse("string");
+                def.put("type", type);
+                maybe.map(r -> r.pattern)
+                     .ifPresent(p -> def.put("pattern", p));
+            }
+
+            // Nested object support
+            if (val.isObject()) {
+                def.put("type", "object");
+                def.set("properties",
+                    buildProperties(val, mapper, rules));
+                def.set("required",
+                    mapper.valueToTree(listRequired(val)));
             }
         }
         return props;
@@ -87,4 +99,17 @@ public class JsonToSchemaConverter {
         node.fieldNames().forEachRemaining(req::add);
         return req;
     }
+
+/**
+ * Replace curly “smart” quotes with straight ASCII quotes so Jackson can parse JSON.
+ */
+private static String normalizeQuotes(String s) {
+    if (s == null) return null;
+    return s
+        .replace('\u201C', '"')
+        .replace('\u201D', '"')
+        .replace('“', '"')
+        .replace('”', '"');
+}
+
 }
