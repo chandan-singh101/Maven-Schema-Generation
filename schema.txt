@@ -6,39 +6,65 @@
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- exec:3.5.0:java (default-cli) @ json-schema-generator ---
-Schema for row 1:
 {
   "$schema" : "http://json-schema.org/draft-04/schema#",
   "type" : "object",
   "properties" : {
     "UniqueId" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^[0-9]{10}$"
     },
     "MobileNo" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^[6-9][0-9]{9}$"
     },
     "IsTxnExternal" : {
-      "type" : "string"
+      "type" : "string",
+      "enum" : [ "0", "1" ]
     },
     "ClientId" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^[0-9]+$"
     },
     "ClientFieldDetails" : {
       "type" : "object",
       "properties" : {
         "UniqueID" : {
           "type" : "string"
+        },
+        "Field1" : {
+          "type" : "string"
+        },
+        "Field2" : {
+          "type" : "string"
+        },
+        "Field3" : {
+          "type" : "string"
         }
       },
       "required" : [ "UniqueID", "Field1", "Field2", "Field3" ]
     },
     "IsWhiteLabel" : {
-      "type" : "number"
+      "type" : "string"
+    },
+    "Category" : {
+      "type" : "string"
+    },
+    "AgentClientId" : {
+      "type" : "string"
+    },
+    "BankName" : {
+      "type" : "string"
+    },
+    "Product" : {
+      "type" : "string"
+    },
+    "RFU1" : {
+      "type" : "string"
     }
   },
   "required" : [ "UniqueId", "MobileNo", "IsTxnExternal", "ClientId", "ClientFieldDetails", "IsWhiteLabel", "Category", "AgentClientId", "BankName", "Product", "RFU1" ]
 }
-Schema for row 2:
 {
   "$schema" : "http://json-schema.org/draft-04/schema#",
   "type" : "object",
@@ -109,13 +135,13 @@ Schema for row 2:
   },
   "required" : [ "IsUpgrade", "CUSTINTEREST", "SubProduct", "productCode", "Pincode", "complaintMode", "AadharName", "AdhaarNo", "AddressProofType", "AddressProofNo", "IDProofType", "IDProofNo", "FIRSTNM", "LASTNM", "ACCOUNTNUMBER", "MobileNumber", "CustomerNUMBER", "EMAILID", "GrievanceTypeID", "SubGrievanceTypeID", "X-Correlation-Id" ]
 }
-Schema for row 3:
 {
   "$schema" : "http://json-schema.org/draft-04/schema#",
   "type" : "object",
   "properties" : {
     "mobileno" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^[6-9][0-9]{9}$"
     },
     "searchflag" : {
       "type" : "string"
@@ -123,9 +149,32 @@ Schema for row 3:
   },
   "required" : [ "mobileno", "searchflag" ]
 }
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "type" : "object",
+  "properties" : {
+    "UniqueId" : {
+      "type" : "string",
+      "pattern" : "^[0-9]{10}$"
+    },
+    "CustomerId" : {
+      "type" : "string",
+      "pattern" : "^[0-9]{10}$"
+    },
+    "uniqueid" : {
+      "type" : "string",
+      "pattern" : "^[0-9]{10}$"
+    },
+    "customerid" : {
+      "type" : "string",
+      "pattern" : "^[0-9]{10}$"
+    }
+  },
+  "required" : [ "UniqueId", "CustomerId", "uniqueid", "customerid" ]
+}
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  1.136 s
-[INFO] Finished at: 2025-04-23T10:43:14+05:30
+[INFO] Total time:  1.324 s
+[INFO] Finished at: 2025-04-24T03:36:31+05:30
 [INFO] ------------------------------------------------------------------------
