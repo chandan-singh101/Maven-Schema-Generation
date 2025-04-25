@@ -7,174 +7,270 @@
 [INFO] 
 [INFO] --- exec:3.5.0:java (default-cli) @ json-schema-generator ---
 {
-  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
   "type" : "object",
+  "additionalProperties" : false,
   "properties" : {
     "UniqueId" : {
       "type" : "string",
-      "pattern" : "^[0-9]{10}$"
+      "pattern" : "^\\d{10}$"
     },
     "MobileNo" : {
-      "type" : "string",
-      "pattern" : "^[6-9][0-9]{9}$"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "IsTxnExternal" : {
       "type" : "string",
-      "enum" : [ "0", "1" ]
+      "pattern" : "^\\d{1}$"
     },
     "ClientId" : {
       "type" : "string",
-      "pattern" : "^[0-9]+$"
+      "pattern" : "^\\d{3}$"
     },
     "ClientFieldDetails" : {
       "type" : "object",
       "properties" : {
         "UniqueID" : {
-          "type" : "string"
+          "type" : "string",
+          "pattern" : "^\\d{10}$"
         },
         "Field1" : {
-          "type" : "string"
+          "type" : [ "string", "null" ],
+          "pattern" : "^$",
+          "description" : "Must be either null or an empty string"
         },
         "Field2" : {
-          "type" : "string"
+          "type" : [ "string", "null" ],
+          "pattern" : "^$",
+          "description" : "Must be either null or an empty string"
         },
         "Field3" : {
-          "type" : "string"
+          "type" : [ "string", "null" ],
+          "pattern" : "^$",
+          "description" : "Must be either null or an empty string"
         }
       },
       "required" : [ "UniqueID", "Field1", "Field2", "Field3" ]
     },
     "IsWhiteLabel" : {
-      "type" : "string"
+      "type" : "integer"
     },
     "Category" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "AgentClientId" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "BankName" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "Product" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "RFU1" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     }
   },
   "required" : [ "UniqueId", "MobileNo", "IsTxnExternal", "ClientId", "ClientFieldDetails", "IsWhiteLabel", "Category", "AgentClientId", "BankName", "Product", "RFU1" ]
 }
 {
-  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
   "type" : "object",
+  "additionalProperties" : false,
   "properties" : {
     "IsUpgrade" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^[a-zA-Z0-9]{1}$"
     },
     "CUSTINTEREST" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^.{14}$"
     },
     "SubProduct" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^.{14}$"
     },
     "productCode" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^\\d{4}$"
     },
     "Pincode" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^\\d{6}$"
     },
     "complaintMode" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^\\d{1}$"
     },
     "AadharName" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "AdhaarNo" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "AddressProofType" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "AddressProofNo" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "IDProofType" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "IDProofNo" : {
-      "type" : "string"
+      "type" : [ "string", "null" ],
+      "pattern" : "^$",
+      "description" : "Must be either null or an empty string"
     },
     "FIRSTNM" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^[a-zA-Z0-9]{7}$"
     },
     "LASTNM" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^[a-zA-Z0-9]{5}$"
     },
     "ACCOUNTNUMBER" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^\\d{11}$"
     },
     "MobileNumber" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^\\d{10}$"
     },
     "CustomerNUMBER" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^\\d{9}$"
     },
     "EMAILID" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^.{26}$"
     },
     "GrievanceTypeID" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^\\d{2}$"
     },
     "SubGrievanceTypeID" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^\\d{1}$"
     },
     "X-Correlation-Id" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^.{25}$"
     }
   },
   "required" : [ "IsUpgrade", "CUSTINTEREST", "SubProduct", "productCode", "Pincode", "complaintMode", "AadharName", "AdhaarNo", "AddressProofType", "AddressProofNo", "IDProofType", "IDProofNo", "FIRSTNM", "LASTNM", "ACCOUNTNUMBER", "MobileNumber", "CustomerNUMBER", "EMAILID", "GrievanceTypeID", "SubGrievanceTypeID", "X-Correlation-Id" ]
 }
 {
-  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
   "type" : "object",
+  "additionalProperties" : false,
   "properties" : {
     "mobileno" : {
       "type" : "string",
-      "pattern" : "^[6-9][0-9]{9}$"
+      "pattern" : "^\\d{10}$"
     },
     "searchflag" : {
-      "type" : "string"
+      "type" : "string",
+      "pattern" : "^[a-zA-Z0-9]{1}$"
     }
   },
   "required" : [ "mobileno", "searchflag" ]
 }
 {
-  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
   "type" : "object",
+  "additionalProperties" : false,
   "properties" : {
     "UniqueId" : {
       "type" : "string",
-      "pattern" : "^[0-9]{10}$"
+      "pattern" : "^\\d{7}$"
     },
     "CustomerId" : {
       "type" : "string",
-      "pattern" : "^[0-9]{10}$"
+      "pattern" : "^\\d{6}$"
     },
     "uniqueid" : {
       "type" : "string",
-      "pattern" : "^[0-9]{10}$"
+      "pattern" : "^\\d{7}$"
     },
     "customerid" : {
       "type" : "string",
-      "pattern" : "^[0-9]{10}$"
+      "pattern" : "^\\d{6}$"
     }
   },
   "required" : [ "UniqueId", "CustomerId", "uniqueid", "customerid" ]
 }
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "type" : "object",
+  "additionalProperties" : false,
+  "properties" : {
+    "UniqueId" : {
+      "type" : "string",
+      "pattern" : "^\\d{7}$"
+    },
+    "tags" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "pattern" : "^[a-zA-Z0-9]{6}$"
+      }
+    },
+    "amounts" : {
+      "type" : "array",
+      "items" : {
+        "type" : "integer"
+      }
+    },
+    "records" : {
+      "type" : "array",
+      "items" : {
+        "$schema" : "https://json-schema.org/draft/2020-12/schema",
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          }
+        },
+        "required" : [ "id" ]
+      }
+    },
+    "emptyArr" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "description" : "Array is empty, defaulting items to string type"
+    }
+  },
+  "required" : [ "UniqueId", "tags", "amounts", "records", "emptyArr" ]
+}
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  1.324 s
-[INFO] Finished at: 2025-04-24T03:36:31+05:30
+[INFO] Total time:  1.652 s
+[INFO] Finished at: 2025-04-25T13:10:18+05:30
 [INFO] ------------------------------------------------------------------------
