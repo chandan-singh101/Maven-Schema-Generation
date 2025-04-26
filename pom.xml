@@ -73,7 +73,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.5.0</version>
         <configuration>
-          <mainClass>com.example.JsonToSchemaConverter</mainClass>
+          <mainClass>com.example.GenerateWireMockService</mainClass>
         </configuration>
       </plugin> <!-- :contentReference[oaicite:7]{index=7} -->
     </plugins>

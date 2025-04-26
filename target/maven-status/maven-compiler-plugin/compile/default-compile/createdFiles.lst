@@ -1,2 +1,5 @@
-com/example/JsonToSchemaConverter.class
-com/example/App.class
+com/example/GenerateWireMockService.class
+com/example/ReadOds.class
+com/example/CreateJson.class
+com/example/FileResponse.class
+com/example/model/ServiceDefinition.class
